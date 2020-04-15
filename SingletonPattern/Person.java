@@ -10,8 +10,13 @@ class Person {
     };
 
     public static Person getInstance() {
-        if (person == null)
-            person = new Person();
+        if (person == null) {
+            synchronized (Person.class) {
+                if (person == null) {
+                    person = new Person();
+                }
+            }
+        }
         return person;
     }
 
